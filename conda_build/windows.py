@@ -266,6 +266,7 @@ def build(m, bld_bat):
             fo.write(data)
 
         cmd = ['cmd.exe', '/c', 'bld.bat']
-        check_call_env(cmd, cwd=src_dir)
+        import ipdb; ipdb.set_trace()
+        check_call_env(cmd, cwd=src_dir, env=env)
 
     fix_staged_scripts(join(m.config.host_prefix, 'Scripts'), config=m.config)

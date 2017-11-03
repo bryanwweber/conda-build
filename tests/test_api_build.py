@@ -1202,3 +1202,12 @@ def test_provides_features_metadata(testing_config):
     assert index['requires_features'] == {'test': 'ok'}
     assert 'provides_features' in index
     assert index['provides_features'] == {'test2': 'also_ok'}
+
+
+@pytest.mark.skipif(not on_win, reason="windows-only variables tested here")
+def test_cpu_vars_win(testing_metadata):
+    testing_metadata.meta['build']['script'] = ['echo %PROCESSOR_ARCHITECTURE%',
+            ("python -c \"import os; "
+             "assert os.environ['PROCESSOR_ARCHITECTURE'] == 'AMD64', "
+             "'PROCESSOR_ARCHITECTURE is {}'.format(os.environ['PROCESSOR_ARCHITECTURE'])\"")]
+    api.build(testing_metadata)
